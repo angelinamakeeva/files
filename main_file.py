@@ -10,7 +10,7 @@ def runCommand(command):
             print(file)
         print()
     elif command == "2":
-        os.chdir('../')
+        moveUp()
     elif command == "3":
         pass
     elif command == "4":
@@ -24,7 +24,11 @@ def runCommand(command):
         pass
 
 def moveUp():
-    pass
+    current_dir = os.getcwd() #получение текущего каталога
+    parent_dir = os.path.dirname(current_dir) #возвращаем родительскую директорию
+    os.chdir(parent_dir)
+    print("Текущая директория изменилась на родительскую", os.getcwd())
+
 
 def moveDown(currendDir):
     pass
