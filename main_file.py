@@ -17,7 +17,8 @@ def runCommand(command):
         print(countFiles(os.getcwd()), "файлов и папок")
         print()
     elif command == "5":
-        pass
+        path = input()
+        print(countBytes(path))
     elif command == "6":
         pass
     elif command == "7":
