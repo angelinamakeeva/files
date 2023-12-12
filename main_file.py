@@ -25,6 +25,9 @@ def runCommand(command):
         pass
 
 def moveUp():
+    """
+    The movUp() function will change our current directory to the parent one.
+    """
     current_dir = os.getcwd() #получение текущего каталога
     parent_dir = os.path.dirname(current_dir) #возвращаем родительскую директорию
     os.chdir(parent_dir) #изменяем текущий каталог на родительский
@@ -43,6 +46,9 @@ def countFiles(path):
     return summ
 
 def countBytes(path):
+    """
+    The countBytes(path)  function calculates the volume in bytes of all files in the specified path directory
+    """
     volume = 0 #объём в байтах
     file_list = os.listdir(path) #получаем список файлов в каталоге
     for files in file_list: #начинаем перебирать файлы в указанном каталоге
