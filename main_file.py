@@ -23,7 +23,7 @@ def runCommand(command):
         pass
     elif command == "7":
         pass
-
+        
 def moveUp():
     """
     The movUp() function will change our current directory to the parent one.
@@ -34,8 +34,15 @@ def moveUp():
     print("Текущая директория изменилась на родительскую", os.getcwd())
 
 
-def moveDown(currendDir):
-    pass
+def moveDown(currentDir):
+    subDir = input("Введите имя подкаталога: ")
+    newDir = os.path.join(currentDir, subDir)
+    if os.path.exists(newDir) and os.path.isdir(newDir):
+        os.chdir(newDir)
+        print("Текущая директория:", os.getcwd())
+    else:
+        print("Ошибка: указанный подкаталог не найден")
+
 
 def countFiles(path):
     nodesList = os.listdir(path)
@@ -62,7 +69,18 @@ def countBytes(path):
 
 
 def findFiles(target, path):
-    pass
+    filesList = []
+    for root, dirs, files in os.walk(path):  # Проходит по всем подкаталогам каталога path
+        for file in files:  # Перебирает все файлы в текущем подкаталоге
+            if target in file:  # Проверяет, содержится ли target в имени файла
+                filesList.append(os.path.join(root, file))  # Добавляет путь к найденному файлу в список
+    if len(filesList) > 0:
+        return filesList  # Возвращает список найденных файлов
+    else:
+        print("Файлы с указанным именем не найдены")
+        return None  
+
+
 
 MENU = '''1. Просмотр каталога
 2. На уровень вверх
@@ -72,17 +90,18 @@ MENU = '''1. Просмотр каталога
 6. Поиск файла
 7. Выход из программы
 Выведите пункт меню: '''
-QUIT = "5"
+QUIT = "7"
 
 def main():
     while True:
         print(os.getcwd())
         print(MENU)
-        command == acceptCommand()
+        command = acceptCommand()
         runCommand(command)
         if command == QUIT:
             print("Работа программы завершена")
+            break
     if __name__ == '__main__':
         main()
-print(MENU)
-command = int(input())
+
+main()
