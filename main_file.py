@@ -26,7 +26,7 @@ def runCommand(command):
 def moveUp():
     current_dir = os.getcwd() #получение текущего каталога
     parent_dir = os.path.dirname(current_dir) #возвращаем родительскую директорию
-    os.chdir(parent_dir)
+    os.chdir(parent_dir) #изменяем текущий каталог на родительский
     print("Текущая директория изменилась на родительскую", os.getcwd())
 
 
@@ -42,7 +42,17 @@ def countFiles(path):
     return summ
 
 def countBytes(path):
-    pass
+    volume = 0 #объём в байтах
+    file_list = os.listdir(path) #получаем список файлов в каталоге
+    for files in file_list: #начинаем перебирать файлы в указанном каталоге
+        file_name = os.path.join(path, files) #создаём полный путь к файлу, объединяя текущий путь к каталогу и имя файла
+        if os.path.isfile(file_name): #проверяем является ли текущий элемент файлом
+            volume += os.path.getsize(file_name) #добавляем этот размер к общему с помощью getsize
+        else:
+            volume += countBytes(file_name) #если текущий элемент является каталогом, то вызываем рекурсивно функцию countBytes для подсчета общего размера всех файлов внутри этого каталога, и этот размер добавляется к общему размеру
+    return volume
+
+
 
 def findFiles(target, path):
     pass
