@@ -12,7 +12,10 @@ def runCommand(command):
     elif command == "2":
         moveUp()
     elif command == "3":
-        pass
+        current_dir = os.getcwd() 
+        parent_dir = os.path.dirname(current_dir) 
+        os.chdir(parent_dir) 
+        print("Текущая директория изменилась", os.getcwd())
     elif command == "4":
         print(countFiles(os.getcwd()), "файлов и папок")
         print()
@@ -20,7 +23,9 @@ def runCommand(command):
         path = input()
         print(countBytes(path))
     elif command == "6":
-        pass
+        target = input()
+        path = input()
+        print(findFiles(target, path))
     elif command == "7":
         pass
         
@@ -28,9 +33,9 @@ def moveUp():
     """
     The movUp() function will change our current directory to the parent one.
     """
-    current_dir = os.getcwd() #получение текущего каталога
-    parent_dir = os.path.dirname(current_dir) #возвращаем родительскую директорию
-    os.chdir(parent_dir) #изменяем текущий каталог на родительский
+    current_dir = os.getcwd() 
+    parent_dir = os.path.dirname(current_dir)
+    os.chdir(parent_dir) 
     print("Текущая директория изменилась на родительскую", os.getcwd())
 
 
@@ -56,26 +61,26 @@ def countBytes(path):
     """
     The countBytes(path)  function calculates the volume in bytes of all files in the specified path directory
     """
-    volume = 0 #объём в байтах
-    file_list = os.listdir(path) #получаем список файлов в каталоге
-    for files in file_list: #начинаем перебирать файлы в указанном каталоге
-        file_name = os.path.join(path, files) #создаём полный путь к файлу, объединяя текущий путь к каталогу и имя файла
-        if os.path.isfile(file_name): #проверяем является ли текущий элемент файлом
-            volume += os.path.getsize(file_name) #добавляем этот размер к общему с помощью getsize
+    volume = 0 
+    file_list = os.listdir(path) 
+    for files in file_list: 
+        file_name = os.path.join(path, files) 
+        if os.path.isfile(file_name): 
+            volume += os.path.getsize(file_name) 
         else:
-            volume += countBytes(file_name) #если текущий элемент является каталогом, то вызываем рекурсивно функцию countBytes для подсчета общего размера всех файлов внутри этого каталога, и этот размер добавляется к общему размеру
+            volume += countBytes(file_name) 
     return volume
 
 
 
 def findFiles(target, path):
     filesList = []
-    for root, dirs, files in os.walk(path):  # Проходит по всем подкаталогам каталога path
-        for file in files:  # Перебирает все файлы в текущем подкаталоге
-            if target in file:  # Проверяет, содержится ли target в имени файла
-                filesList.append(os.path.join(root, file))  # Добавляет путь к найденному файлу в список
+    for root, dirs, files in os.walk(path): 
+        for file in files:  
+            if target in file: 
+                filesList.append(os.path.join(root, file))  
     if len(filesList) > 0:
-        return filesList  # Возвращает список найденных файлов
+        return filesList  
     else:
         print("Файлы с указанным именем не найдены")
         return None  
