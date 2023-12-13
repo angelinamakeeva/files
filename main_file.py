@@ -27,7 +27,7 @@ def runCommand(command):
         path = input()
         print(findFiles(target, path))
     elif command == "7":
-        pass
+        break
         
 def moveUp():
     """
